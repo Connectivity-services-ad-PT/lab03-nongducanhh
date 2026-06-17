@@ -1,0 +1,3455 @@
+{
+  "info": {
+    "_postman_id": "132ba56e-8fbd-488f-a9c1-d6d3c5775184",
+    "name": "Camera ↔ AI Vision API",
+    "description": "Hợp đồng API giữa Camera Service (Consumer) và AI Vision Service (Provider)\ntrong hệ thống Smart Campus FIT4110 — Lab 02.\n\n\nContact Support:\n Name: FIT4110 Lab 02 — Pair 01",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55936881",
+    "_collection_link": "https://go.postman.co/collection/55936881-132ba56e-8fbd-488f-a9c1-d6d3c5775184?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "health",
+      "item": [
+        {
+          "name": "Kiểm tra trạng thái AI Vision Service",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            },
+            "description": "API này dùng để health-check, đảm bảo AI Vision đang hoạt động ổn định và sẵn sàng nhận yêu cầu phân tích frame."
+          },
+          "response": [
+            {
+              "name": "Service đang hoạt động bình thường",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/health",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"status\": \"ok\",\n  \"version\": \"1.0.0\",\n  \"uptime_seconds\": 3600\n}"
+            },
+            {
+              "name": "Service không khả dụng",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/health",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "frames",
+      "item": [
+        {
+          "name": "{frame_id}",
+          "item": [
+            {
+              "name": "result",
+              "item": [
+                {
+                  "name": "Lấy kết quả phân tích của một frame",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/frames/:frame_id/result",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "frames",
+                        ":frame_id",
+                        "result"
+                      ],
+                      "variable": [
+                        {
+                          "key": "frame_id",
+                          "value": "8ab65d23-95f5-bc21-1c73-e74a8a47dc28",
+                          "description": "ID của frame đã gửi"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Kết quả phân tích frame",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/frames/:frame_id/result",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "frames",
+                            ":frame_id",
+                            "result"
+                          ],
+                          "variable": [
+                            {
+                              "key": "frame_id",
+                              "value": "8ab65d23-95f5-bc21-1c73-e74a8a47dc28",
+                              "description": "ID của frame đã gửi"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"frame_id\": \"b606bfc3-463a-c112-afa3-8ee3f4939ebb\",\n  \"camera_id\": \"string\",\n  \"analyzed_at\": \"2008-12-19T06:33:20.259Z\",\n  \"detections\": [\n    {\n      \"label\": \"string\",\n      \"confidence\": 0.39057550387030626,\n      \"bounding_box\": {\n        \"x\": 2424,\n        \"y\": 6113,\n        \"width\": 5791,\n        \"height\": 8247\n      }\n    },\n    {\n      \"label\": \"string\",\n      \"confidence\": 0.01210881146655074,\n      \"bounding_box\": {\n        \"x\": 1064,\n        \"y\": 4916,\n        \"width\": 4754,\n        \"height\": 3142\n      }\n    }\n  ],\n  \"model_version\": \"string\",\n  \"alert\": {\n    \"alert_type\": \"string\",\n    \"reason\": \"string\"\n  }\n}"
+                    },
+                    {
+                      "name": "Frame đang được xử lý, chưa có kết quả",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/frames/:frame_id/result",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "frames",
+                            ":frame_id",
+                            "result"
+                          ],
+                          "variable": [
+                            {
+                              "key": "frame_id",
+                              "value": "8ab65d23-95f5-bc21-1c73-e74a8a47dc28",
+                              "description": "ID của frame đã gửi"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Accepted",
+                      "code": 202,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"frame_id\": \"acceec19-c1c3-71a2-774c-2444eadb96e6\",\n  \"status\": \"queued\",\n  \"estimated_ms\": null\n}"
+                    },
+                    {
+                      "name": "Chưa xác thực",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/problem+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/frames/:frame_id/result",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "frames",
+                            ":frame_id",
+                            "result"
+                          ],
+                          "variable": [
+                            {
+                              "key": "frame_id",
+                              "value": "8ab65d23-95f5-bc21-1c73-e74a8a47dc28",
+                              "description": "ID của frame đã gửi"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/problem+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+                    },
+                    {
+                      "name": "Không tìm thấy frame",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/problem+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/frames/:frame_id/result",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "frames",
+                            ":frame_id",
+                            "result"
+                          ],
+                          "variable": [
+                            {
+                              "key": "frame_id",
+                              "value": "8ab65d23-95f5-bc21-1c73-e74a8a47dc28",
+                              "description": "ID của frame đã gửi"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/problem+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Gửi một frame ảnh từ camera để phân tích",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/frames",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "frames"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Frame đã được nhận, đang xử lý bất đồng bộ",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"frame_id\": \"acceec19-c1c3-71a2-774c-2444eadb96e6\",\n  \"status\": \"queued\",\n  \"estimated_ms\": null\n}"
+            },
+            {
+              "name": "Dữ liệu frame không hợp lệ",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"type\": \"https://smartcampus.internal/errors/invalid-frame\",\n  \"title\": \"Invalid Frame\",\n  \"status\": 400,\n  \"detail\": \"Trường image_base64 không được để trống\",\n  \"instance\": \"urn:uuid:12345678-1234-1234-1234-1234567890ab\"\n}"
+            },
+            {
+              "name": "Chưa xác thực",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            },
+            {
+              "name": "Frame đúng cú pháp nhưng không thể xử lý",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            },
+            {
+              "name": "Lỗi nội bộ server",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "alerts",
+      "item": [
+        {
+          "name": "recent",
+          "item": [
+            {
+              "name": "Lấy danh sách cảnh báo gần đây từ AI Vision",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/alerts/recent?camera_id=&severity=high&limit=20&since=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "alerts",
+                    "recent"
+                  ],
+                  "query": [
+                    {
+                      "key": "camera_id",
+                      "value": "",
+                      "description": "Lọc theo camera cụ thể (null = tất cả camera)"
+                    },
+                    {
+                      "key": "severity",
+                      "value": "high",
+                      "description": "Lọc theo mức độ nghiêm trọng"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "since",
+                      "value": "",
+                      "description": "Chỉ lấy cảnh báo từ thời điểm này trở đi"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Danh sách cảnh báo",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/alerts/recent?camera_id=&severity=high&limit=20&since=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "alerts",
+                        "recent"
+                      ],
+                      "query": [
+                        {
+                          "description": "Lọc theo camera cụ thể (null = tất cả camera)",
+                          "key": "camera_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "Lọc theo mức độ nghiêm trọng",
+                          "key": "severity",
+                          "value": "high"
+                        },
+                        {
+                          "key": "limit",
+                          "value": "20"
+                        },
+                        {
+                          "description": "Chỉ lấy cảnh báo từ thời điểm này trở đi",
+                          "key": "since",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"items\": [\n    {\n      \"alert_id\": \"df447692-0fa5-ea71-0211-a307be80d239\",\n      \"camera_id\": \"string\",\n      \"severity\": \"high\",\n      \"triggered_at\": \"2008-05-03T22:15:21.961Z\",\n      \"message\": null\n    },\n    {\n      \"alert_id\": \"4f56a491-2647-ddf3-b4a1-8e949712c62b\",\n      \"camera_id\": \"string\",\n      \"severity\": \"low\",\n      \"triggered_at\": \"1965-03-13T23:43:18.072Z\",\n      \"message\": null\n    }\n  ],\n  \"total\": 1645,\n  \"next_cursor\": \"string\"\n}"
+                },
+                {
+                  "name": "Tham số truy vấn không hợp lệ",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/problem+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/alerts/recent?camera_id=&severity=high&limit=20&since=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "alerts",
+                        "recent"
+                      ],
+                      "query": [
+                        {
+                          "description": "Lọc theo camera cụ thể (null = tất cả camera)",
+                          "key": "camera_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "Lọc theo mức độ nghiêm trọng",
+                          "key": "severity",
+                          "value": "high"
+                        },
+                        {
+                          "key": "limit",
+                          "value": "20"
+                        },
+                        {
+                          "description": "Chỉ lấy cảnh báo từ thời điểm này trở đi",
+                          "key": "since",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/problem+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+                },
+                {
+                  "name": "Chưa xác thực",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/problem+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/alerts/recent?camera_id=&severity=high&limit=20&since=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "alerts",
+                        "recent"
+                      ],
+                      "query": [
+                        {
+                          "description": "Lọc theo camera cụ thể (null = tất cả camera)",
+                          "key": "camera_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "Lọc theo mức độ nghiêm trọng",
+                          "key": "severity",
+                          "value": "high"
+                        },
+                        {
+                          "key": "limit",
+                          "value": "20"
+                        },
+                        {
+                          "description": "Chỉ lấy cảnh báo từ thời điểm này trở đi",
+                          "key": "since",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/problem+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "models",
+      "item": [
+        {
+          "name": "active",
+          "item": [
+            {
+              "name": "Lấy thông tin model AI đang được kích hoạt",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/models/active",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models",
+                    "active"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Thông tin model hiện tại",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/models/active",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        "active"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"model_id\": \"c9e33dba-d458-21f3-37da-8c38e4b198d2\",\n  \"name\": \"string\",\n  \"version\": \"string\",\n  \"status\": \"error\",\n  \"loaded_at\": \"1974-09-30T07:42:27.663Z\",\n  \"capabilities\": [\n    \"intruder_detection\",\n    \"crowd_monitoring\",\n    \"fire_smoke\"\n  ]\n}"
+                },
+                {
+                  "name": "Chưa xác thực",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/problem+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/models/active",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        "active"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/problem+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+                },
+                {
+                  "name": "Không có model nào đang hoạt động",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/problem+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/models/active",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        "active"
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/problem+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "01_Functional",
+      "item": [
+        {
+          "name": "[01] Happy Path - Check Health",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200 OK\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response body contains status and version\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.have.property(\"status\");\r",
+                  "    pm.expect(jsonData).to.have.property(\"version\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            },
+            "description": "API này dùng để health-check, đảm bảo AI Vision đang hoạt động ổn định và sẵn sàng nhận yêu cầu phân tích frame."
+          },
+          "response": [
+            {
+              "name": "Service đang hoạt động bình thường",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/health",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"status\": \"ok\",\n  \"version\": \"1.0.0\",\n  \"uptime_seconds\": 3600\n}"
+            },
+            {
+              "name": "Service không khả dụng",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/health",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "[07] Functional - Get Recent Alerts",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200 OK\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Response contains items array\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.items).to.be.an('array');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/alerts/recent?camera_id=&severity=high&limit=20&since=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "alerts",
+                "recent"
+              ],
+              "query": [
+                {
+                  "key": "camera_id",
+                  "value": "",
+                  "description": "Lọc theo camera cụ thể (null = tất cả camera)"
+                },
+                {
+                  "key": "severity",
+                  "value": "high",
+                  "description": "Lọc theo mức độ nghiêm trọng"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "since",
+                  "value": "",
+                  "description": "Chỉ lấy cảnh báo từ thời điểm này trở đi"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Danh sách cảnh báo",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/alerts/recent?camera_id=&severity=high&limit=20&since=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "alerts",
+                    "recent"
+                  ],
+                  "query": [
+                    {
+                      "description": "Lọc theo camera cụ thể (null = tất cả camera)",
+                      "key": "camera_id",
+                      "value": ""
+                    },
+                    {
+                      "description": "Lọc theo mức độ nghiêm trọng",
+                      "key": "severity",
+                      "value": "high"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "description": "Chỉ lấy cảnh báo từ thời điểm này trở đi",
+                      "key": "since",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"items\": [\n    {\n      \"alert_id\": \"df447692-0fa5-ea71-0211-a307be80d239\",\n      \"camera_id\": \"string\",\n      \"severity\": \"high\",\n      \"triggered_at\": \"2008-05-03T22:15:21.961Z\",\n      \"message\": null\n    },\n    {\n      \"alert_id\": \"4f56a491-2647-ddf3-b4a1-8e949712c62b\",\n      \"camera_id\": \"string\",\n      \"severity\": \"low\",\n      \"triggered_at\": \"1965-03-13T23:43:18.072Z\",\n      \"message\": null\n    }\n  ],\n  \"total\": 1645,\n  \"next_cursor\": \"string\"\n}"
+            },
+            {
+              "name": "Tham số truy vấn không hợp lệ",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/alerts/recent?camera_id=&severity=high&limit=20&since=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "alerts",
+                    "recent"
+                  ],
+                  "query": [
+                    {
+                      "description": "Lọc theo camera cụ thể (null = tất cả camera)",
+                      "key": "camera_id",
+                      "value": ""
+                    },
+                    {
+                      "description": "Lọc theo mức độ nghiêm trọng",
+                      "key": "severity",
+                      "value": "high"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "description": "Chỉ lấy cảnh báo từ thời điểm này trở đi",
+                      "key": "since",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            },
+            {
+              "name": "Chưa xác thực",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/alerts/recent?camera_id=&severity=high&limit=20&since=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "alerts",
+                    "recent"
+                  ],
+                  "query": [
+                    {
+                      "description": "Lọc theo camera cụ thể (null = tất cả camera)",
+                      "key": "camera_id",
+                      "value": ""
+                    },
+                    {
+                      "description": "Lọc theo mức độ nghiêm trọng",
+                      "key": "severity",
+                      "value": "high"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "description": "Chỉ lấy cảnh báo từ thời điểm này trở đi",
+                      "key": "since",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "[08] Functional - Get Active Model",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Successfully retrieved active model\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect([\"active\", \"loading\"]).to.include(jsonData.status);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/models/active",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "models",
+                "active"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Thông tin model hiện tại",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/models/active",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models",
+                    "active"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"model_id\": \"c9e33dba-d458-21f3-37da-8c38e4b198d2\",\n  \"name\": \"string\",\n  \"version\": \"string\",\n  \"status\": \"error\",\n  \"loaded_at\": \"1974-09-30T07:42:27.663Z\",\n  \"capabilities\": [\n    \"intruder_detection\",\n    \"crowd_monitoring\",\n    \"fire_smoke\"\n  ]\n}"
+            },
+            {
+              "name": "Chưa xác thực",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/models/active",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models",
+                    "active"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            },
+            {
+              "name": "Không có model nào đang hoạt động",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/models/active",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models",
+                    "active"
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "02_Auth",
+      "item": [
+        {
+          "name": "[02] Auth - Missing Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Missing token returns 401 Unauthorized\", function () {\r",
+                  "    pm.expect([401, 403]).to.include(pm.response.code);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}} {{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/frames",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "frames"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Frame đã được nhận, đang xử lý bất đồng bộ",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"frame_id\": \"acceec19-c1c3-71a2-774c-2444eadb96e6\",\n  \"status\": \"queued\",\n  \"estimated_ms\": null\n}"
+            },
+            {
+              "name": "Dữ liệu frame không hợp lệ",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"type\": \"https://smartcampus.internal/errors/invalid-frame\",\n  \"title\": \"Invalid Frame\",\n  \"status\": 400,\n  \"detail\": \"Trường image_base64 không được để trống\",\n  \"instance\": \"urn:uuid:12345678-1234-1234-1234-1234567890ab\"\n}"
+            },
+            {
+              "name": "Chưa xác thực",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            },
+            {
+              "name": "Frame đúng cú pháp nhưng không thể xử lý",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            },
+            {
+              "name": "Lỗi nội bộ server",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "03_Negative",
+      "item": [
+        {
+          "name": "[03] Negative - Missing Image Base64",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Missing required field returns 400 or 422\", function () {\r",
+                  "    pm.expect([400, 422]).to.include(pm.response.code);\r",
+                  "});\r",
+                  "pm.test(\"Error response matches ProblemDetails format\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.have.property(\"title\");\r",
+                  "    pm.expect(jsonData).to.have.property(\"status\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}} {{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/frames",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "frames"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Frame đã được nhận, đang xử lý bất đồng bộ",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"frame_id\": \"acceec19-c1c3-71a2-774c-2444eadb96e6\",\n  \"status\": \"queued\",\n  \"estimated_ms\": null\n}"
+            },
+            {
+              "name": "Dữ liệu frame không hợp lệ",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"type\": \"https://smartcampus.internal/errors/invalid-frame\",\n  \"title\": \"Invalid Frame\",\n  \"status\": 400,\n  \"detail\": \"Trường image_base64 không được để trống\",\n  \"instance\": \"urn:uuid:12345678-1234-1234-1234-1234567890ab\"\n}"
+            },
+            {
+              "name": "Chưa xác thực",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            },
+            {
+              "name": "Frame đúng cú pháp nhưng không thể xử lý",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            },
+            {
+              "name": "Lỗi nội bộ server",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            },
+            {
+              "name": "[03] Negative - Missing Image Base64",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Access-Control-Expose-Headers",
+                  "value": "*"
+                },
+                {
+                  "key": "sl-violations",
+                  "value": "[{\"location\":[\"request\",\"body\"],\"severity\":\"Error\",\"code\":\"required\",\"message\":\"Request body must have required property 'image_base64'\"}]"
+                },
+                {
+                  "key": "Content-type",
+                  "value": "application/problem+json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "107"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 17 Jun 2026 17:54:59 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"type\": \"http://example.com\",\n    \"title\": \"string\",\n    \"status\": 0,\n    \"detail\": \"string\",\n    \"instance\": \"http://example.com\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "[09] Negative - Invalid Frame ID Format",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Invalid UUID format returns client error\", function () {\r",
+                  "    pm.expect([400, 404, 422]).to.include(pm.response.code);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/frames/sai-dinh-dang-uuid/result",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "frames",
+                "sai-dinh-dang-uuid",
+                "result"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Kết quả phân tích frame",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/frames/:frame_id/result",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames",
+                    ":frame_id",
+                    "result"
+                  ],
+                  "variable": [
+                    {
+                      "key": "frame_id",
+                      "value": "8ab65d23-95f5-bc21-1c73-e74a8a47dc28",
+                      "description": "ID của frame đã gửi"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"frame_id\": \"b606bfc3-463a-c112-afa3-8ee3f4939ebb\",\n  \"camera_id\": \"string\",\n  \"analyzed_at\": \"2008-12-19T06:33:20.259Z\",\n  \"detections\": [\n    {\n      \"label\": \"string\",\n      \"confidence\": 0.39057550387030626,\n      \"bounding_box\": {\n        \"x\": 2424,\n        \"y\": 6113,\n        \"width\": 5791,\n        \"height\": 8247\n      }\n    },\n    {\n      \"label\": \"string\",\n      \"confidence\": 0.01210881146655074,\n      \"bounding_box\": {\n        \"x\": 1064,\n        \"y\": 4916,\n        \"width\": 4754,\n        \"height\": 3142\n      }\n    }\n  ],\n  \"model_version\": \"string\",\n  \"alert\": {\n    \"alert_type\": \"string\",\n    \"reason\": \"string\"\n  }\n}"
+            },
+            {
+              "name": "Frame đang được xử lý, chưa có kết quả",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/frames/:frame_id/result",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames",
+                    ":frame_id",
+                    "result"
+                  ],
+                  "variable": [
+                    {
+                      "key": "frame_id",
+                      "value": "8ab65d23-95f5-bc21-1c73-e74a8a47dc28",
+                      "description": "ID của frame đã gửi"
+                    }
+                  ]
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"frame_id\": \"acceec19-c1c3-71a2-774c-2444eadb96e6\",\n  \"status\": \"queued\",\n  \"estimated_ms\": null\n}"
+            },
+            {
+              "name": "Chưa xác thực",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/frames/:frame_id/result",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames",
+                    ":frame_id",
+                    "result"
+                  ],
+                  "variable": [
+                    {
+                      "key": "frame_id",
+                      "value": "8ab65d23-95f5-bc21-1c73-e74a8a47dc28",
+                      "description": "ID của frame đã gửi"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            },
+            {
+              "name": "Không tìm thấy frame",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/frames/:frame_id/result",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames",
+                    ":frame_id",
+                    "result"
+                  ],
+                  "variable": [
+                    {
+                      "key": "frame_id",
+                      "value": "8ab65d23-95f5-bc21-1c73-e74a8a47dc28",
+                      "description": "ID của frame đã gửi"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "04_Boundary_Reliability",
+      "item": [
+        {
+          "name": "[04] Boundary - Invalid Resolution",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Invalid resolution boundary returns 400 or 422\", function () {\r",
+                  "    pm.expect([400, 422]).to.include(pm.response.code);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 0,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/frames",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "frames"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Frame đã được nhận, đang xử lý bất đồng bộ",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"frame_id\": \"acceec19-c1c3-71a2-774c-2444eadb96e6\",\n  \"status\": \"queued\",\n  \"estimated_ms\": null\n}"
+            },
+            {
+              "name": "Dữ liệu frame không hợp lệ",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"type\": \"https://smartcampus.internal/errors/invalid-frame\",\n  \"title\": \"Invalid Frame\",\n  \"status\": 400,\n  \"detail\": \"Trường image_base64 không được để trống\",\n  \"instance\": \"urn:uuid:12345678-1234-1234-1234-1234567890ab\"\n}"
+            },
+            {
+              "name": "Chưa xác thực",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            },
+            {
+              "name": "Frame đúng cú pháp nhưng không thể xử lý",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            },
+            {
+              "name": "Lỗi nội bộ server",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"camera_id\": \"cam-001\",\n  \"timestamp\": \"2025-06-01T08:00:00Z\",\n  \"image_base64\": \"dGVzdA==\",\n  \"resolution\": {\n    \"width\": 1920,\n    \"height\": 1080\n  },\n  \"scene_hint\": \"intruder_detection\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/frames",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "frames"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "[10] Boundary - Limit Exceeded",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Exceeding max limit returns 400 or is handled gracefully\", function () {\r",
+                  "    pm.expect([200, 400, 422]).to.include(pm.response.code);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/alerts/recent?camera_id=&severity=high&limit=1000&since=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "alerts",
+                "recent"
+              ],
+              "query": [
+                {
+                  "key": "camera_id",
+                  "value": "",
+                  "description": "Lọc theo camera cụ thể (null = tất cả camera)"
+                },
+                {
+                  "key": "severity",
+                  "value": "high",
+                  "description": "Lọc theo mức độ nghiêm trọng"
+                },
+                {
+                  "key": "limit",
+                  "value": "1000"
+                },
+                {
+                  "key": "since",
+                  "value": "",
+                  "description": "Chỉ lấy cảnh báo từ thời điểm này trở đi"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Danh sách cảnh báo",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/alerts/recent?camera_id=&severity=high&limit=20&since=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "alerts",
+                    "recent"
+                  ],
+                  "query": [
+                    {
+                      "description": "Lọc theo camera cụ thể (null = tất cả camera)",
+                      "key": "camera_id",
+                      "value": ""
+                    },
+                    {
+                      "description": "Lọc theo mức độ nghiêm trọng",
+                      "key": "severity",
+                      "value": "high"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "description": "Chỉ lấy cảnh báo từ thời điểm này trở đi",
+                      "key": "since",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"items\": [\n    {\n      \"alert_id\": \"df447692-0fa5-ea71-0211-a307be80d239\",\n      \"camera_id\": \"string\",\n      \"severity\": \"high\",\n      \"triggered_at\": \"2008-05-03T22:15:21.961Z\",\n      \"message\": null\n    },\n    {\n      \"alert_id\": \"4f56a491-2647-ddf3-b4a1-8e949712c62b\",\n      \"camera_id\": \"string\",\n      \"severity\": \"low\",\n      \"triggered_at\": \"1965-03-13T23:43:18.072Z\",\n      \"message\": null\n    }\n  ],\n  \"total\": 1645,\n  \"next_cursor\": \"string\"\n}"
+            },
+            {
+              "name": "Tham số truy vấn không hợp lệ",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/alerts/recent?camera_id=&severity=high&limit=20&since=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "alerts",
+                    "recent"
+                  ],
+                  "query": [
+                    {
+                      "description": "Lọc theo camera cụ thể (null = tất cả camera)",
+                      "key": "camera_id",
+                      "value": ""
+                    },
+                    {
+                      "description": "Lọc theo mức độ nghiêm trọng",
+                      "key": "severity",
+                      "value": "high"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "description": "Chỉ lấy cảnh báo từ thời điểm này trở đi",
+                      "key": "since",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            },
+            {
+              "name": "Chưa xác thực",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/alerts/recent?camera_id=&severity=high&limit=20&since=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "alerts",
+                    "recent"
+                  ],
+                  "query": [
+                    {
+                      "description": "Lọc theo camera cụ thể (null = tất cả camera)",
+                      "key": "camera_id",
+                      "value": ""
+                    },
+                    {
+                      "description": "Lọc theo mức độ nghiêm trọng",
+                      "key": "severity",
+                      "value": "high"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "description": "Chỉ lấy cảnh báo từ thời điểm này trở đi",
+                      "key": "since",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "05_Consumer_side_Smoke",
+      "item": [
+        {
+          "name": "[05] Smoke - Ping AI Vision",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Smoke Test: AI Vision is reachable\", function () {\r",
+                  "    pm.response.to.not.be.error;\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/models/active",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "models",
+                "active"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Thông tin model hiện tại",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/models/active",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models",
+                    "active"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"model_id\": \"c9e33dba-d458-21f3-37da-8c38e4b198d2\",\n  \"name\": \"string\",\n  \"version\": \"string\",\n  \"status\": \"error\",\n  \"loaded_at\": \"1974-09-30T07:42:27.663Z\",\n  \"capabilities\": [\n    \"intruder_detection\",\n    \"crowd_monitoring\",\n    \"fire_smoke\"\n  ]\n}"
+            },
+            {
+              "name": "Chưa xác thực",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/models/active",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models",
+                    "active"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            },
+            {
+              "name": "Không có model nào đang hoạt động",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/models/active",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models",
+                    "active"
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "06_Local_only_NonFunctional",
+      "item": [
+        {
+          "name": "[06] NonFunctional - Latency Check",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Response time is exceptionally fast (under 1000ms)\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/models/active",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "models",
+                "active"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Thông tin model hiện tại",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/models/active",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models",
+                    "active"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"model_id\": \"c9e33dba-d458-21f3-37da-8c38e4b198d2\",\n  \"name\": \"string\",\n  \"version\": \"string\",\n  \"status\": \"error\",\n  \"loaded_at\": \"1974-09-30T07:42:27.663Z\",\n  \"capabilities\": [\n    \"intruder_detection\",\n    \"crowd_monitoring\",\n    \"fire_smoke\"\n  ]\n}"
+            },
+            {
+              "name": "Chưa xác thực",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/models/active",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models",
+                    "active"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            },
+            {
+              "name": "Không có model nào đang hoạt động",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/models/active",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models",
+                    "active"
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"title\": \"string\",\n  \"status\": 8099,\n  \"type\": \"http://WdyRyjdJyNykmlRHOONJKzjMWhTVDmffU.bvejpXxa4PlRcL7oGbbOSKcPia3Emt3CI\",\n  \"detail\": \"string\",\n  \"instance\": null\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:4010"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Camera ↔ AI Vision API" tests="15" time="0.234">
+  <testsuite name="health / Kiểm tra trạng thái AI Vision Service" id="00f52d7d-c067-4512-9b57-8ec4773eef2e" timestamp="2026-06-17T18:48:19.161Z" tests="0" failures="0" errors="0" time="0.067"/>
+  <testsuite name="frames / {frame_id} / result / Lấy kết quả phân tích của một frame" id="7ce73b3c-6030-431c-85fb-274ea66a0ca4" timestamp="2026-06-17T18:48:19.161Z" tests="0" failures="0" errors="0" time="0.058"/>
+  <testsuite name="frames / Gửi một frame ảnh từ camera để phân tích" id="fe87d9b1-8f07-4006-bfdb-96fd1df37d5c" timestamp="2026-06-17T18:48:19.161Z" tests="0" failures="0" errors="0" time="0.013"/>
+  <testsuite name="alerts / recent / Lấy danh sách cảnh báo gần đây từ AI Vision" id="e5f9de79-a8d7-4958-b389-86b6844f0391" timestamp="2026-06-17T18:48:19.161Z" tests="0" failures="0" errors="0" time="0.010"/>
+  <testsuite name="models / active / Lấy thông tin model AI đang được kích hoạt" id="842e72db-9817-41bb-a667-7509c9387114" timestamp="2026-06-17T18:48:19.161Z" tests="0" failures="0" errors="0" time="0.009"/>
+  <testsuite name="01_Functional / [01] Happy Path - Check Health" id="929de6ac-deb9-4cee-9b5e-efa07d779ede" timestamp="2026-06-17T18:48:19.161Z" tests="2" failures="0" errors="0" time="0.006">
+    <testcase name="Status code is 200 OK" time="0.006" classname="01Functional01HappyPathCheckHealth"/>
+    <testcase name="Response body contains status and version" time="0.006" classname="01Functional01HappyPathCheckHealth"/>
+  </testsuite>
+  <testsuite name="01_Functional / [07] Functional - Get Recent Alerts" id="3e810c71-6866-40ee-bdaf-0aa4504c9bbd" timestamp="2026-06-17T18:48:19.161Z" tests="2" failures="0" errors="0" time="0.009">
+    <testcase name="Status code is 200 OK" time="0.009" classname="01Functional07FunctionalGetRecentAlerts"/>
+    <testcase name="Response contains items array" time="0.009" classname="01Functional07FunctionalGetRecentAlerts"/>
+  </testsuite>
+  <testsuite name="01_Functional / [08] Functional - Get Active Model" id="0805db3c-903f-45c0-8b52-091669928377" timestamp="2026-06-17T18:48:19.161Z" tests="1" failures="0" errors="0" time="0.007">
+    <testcase name="Successfully retrieved active model" time="0.007" classname="01Functional08FunctionalGetActiveModel"/>
+  </testsuite>
+  <testsuite name="02_Auth / [02] Auth - Missing Token" id="756bf867-e434-4f8a-aabc-aa4e369eecd3" timestamp="2026-06-17T18:48:19.161Z" tests="1" failures="1" errors="0" time="0.007">
+    <testcase name="Missing token returns 401 Unauthorized" time="0.007" classname="02Auth02AuthMissingToken">
+      <failure type="AssertionFailure" message="expected [ 401, 403 ] to include 202">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 132ba56e-8fbd-488f-a9c1-d6d3c5775184.]]>
+        <![CDATA[Collection name: Camera ↔ AI Vision API.]]>
+        <![CDATA[Request name: 02_Auth / [02] Auth - Missing Token.]]>
+        <![CDATA[Test description: Missing token returns 401 Unauthorized.]]>
+        <![CDATA[Error message: expected [ 401, 403 ] to include 202.]]>
+        <![CDATA[Stacktrace: AssertionError: expected [ 401, 403 ] to include 202
+   at Object.eval sandbox-script.js:1:9).]]>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="03_Negative / [03] Negative - Missing Image Base64" id="6016e7a2-4209-47c0-9269-c6976220ff73" timestamp="2026-06-17T18:48:19.161Z" tests="2" failures="0" errors="0" time="0.010">
+    <testcase name="Missing required field returns 400 or 422" time="0.010" classname="03Negative03NegativeMissingImageBase64"/>
+    <testcase name="Error response matches ProblemDetails format" time="0.010" classname="03Negative03NegativeMissingImageBase64"/>
+  </testsuite>
+  <testsuite name="03_Negative / [09] Negative - Invalid Frame ID Format" id="9aad3680-1dc8-42a9-9060-0cab8bf7f8b3" timestamp="2026-06-17T18:48:19.161Z" tests="1" failures="0" errors="0" time="0.006">
+    <testcase name="Invalid UUID format returns client error" time="0.006" classname="03Negative09NegativeInvalidFrameIdFormat"/>
+  </testsuite>
+  <testsuite name="04_Boundary_Reliability / [04] Boundary - Invalid Resolution" id="4b04de12-340e-4c0e-997b-81ed39ad5177" timestamp="2026-06-17T18:48:19.161Z" tests="1" failures="0" errors="0" time="0.010">
+    <testcase name="Invalid resolution boundary returns 400 or 422" time="0.010" classname="04BoundaryReliability04BoundaryInvalidResolution"/>
+  </testsuite>
+  <testsuite name="04_Boundary_Reliability / [10] Boundary - Limit Exceeded" id="f2de627a-1e5c-4ef7-bf2a-41206dca1ce6" timestamp="2026-06-17T18:48:19.161Z" tests="1" failures="0" errors="0" time="0.008">
+    <testcase name="Exceeding max limit returns 400 or is handled gracefully" time="0.008" classname="04BoundaryReliability10BoundaryLimitExceeded"/>
+  </testsuite>
+  <testsuite name="05_Consumer_side_Smoke / [05] Smoke - Ping AI Vision" id="e390e2d2-2291-4f77-b1df-e586ca05ab0c" timestamp="2026-06-17T18:48:19.161Z" tests="1" failures="0" errors="0" time="0.008">
+    <testcase name="Smoke Test: AI Vision is reachable" time="0.008" classname="05ConsumerSideSmoke05SmokePingAiVision"/>
+  </testsuite>
+  <testsuite name="06_Local_only_NonFunctional / [06] NonFunctional - Latency Check" id="cb39add5-9318-47e7-81c3-06773f94056e" timestamp="2026-06-17T18:48:19.161Z" tests="1" failures="0" errors="0" time="0.006">
+    <testcase name="Response time is exceptionally fast (under 1000ms)" time="0.006" classname="06LocalOnlyNonFunctional06NonFunctionalLatencyCheck"/>
+  </testsuite>
+</testsuites>
